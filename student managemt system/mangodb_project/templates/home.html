@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background-image: url("{{ url_for('static', filename='background.jpg') }}");
+            background-size: cover;
+            background-position: center;
+            color: white;
+            min-height: 100vh;
+        }
+
+        .nav-buttons {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            margin-right: 15px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nav-buttons a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .main-box {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px 30px;
+            max-width: 600px;
+            margin: 150px auto 30px auto;
+            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.6);
+        }
+
+        .main-box h1 {
+            margin-bottom: 30px;
+        }
+
+        .main-box button {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 15px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .main-box button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .info-section {
+            display: none;
+            max-width: 800px;
+            margin: 20px auto;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
+
+        .info-section h2 {
+            border-bottom: 1px solid #fff;
+            padding-bottom: 10px;
+        }
+
+        .info-section p {
+            line-height: 1.6;
+        }
+
+        .course-buttons {
+            margin-top: 20px;
+        }
+
+        .course-buttons button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .course-buttons button:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        html, body {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-buttons">
+        <a href="/student">Student</a>
+        <a href="/teacher">Teacher</a>
+    </div>
+
+    <div class="main-box">
+        <h1>Welcome to PESITM College SHIVAMOGGA</h1>
+        <button onclick="showContent('college')">About the College</button>
+        <button onclick="showContent('course')">About the Course</button>
+        <button onclick="showContent('contact')">Contact Info</button>
+    </div>
+
+    <div id="college" class="info-section">
+        <h2>About the College</h2>
+        <p>PESITM College of Engineering, Shivamogga is a premier institution known for its dedication to innovation, research, and student success. We foster a vibrant academic environment and shape students into future-ready professionals.</p>
+    </div>
+
+    <div id="course" class="info-section">
+        <h2>About the Courses</h2>
+        <div class="course-buttons">
+            <button onclick="showCourseInfo('cs')">Computer Science</button>
+            <button onclick="showCourseInfo('it')">Information Technology</button>
+            <button onclick="showCourseInfo('ai')">Artificial Intelligence</button>
+            <button onclick="showCourseInfo('is')">Information Science</button>
+            <button onclick="showCourseInfo('eee')">Electrical Science and Engineering</button>
+        </div>
+
+        <!-- Course Details -->
+        <div id="cs" class="course-detail" style="display:none; margin-top: 15px;">
+            <h3>Computer Science</h3>
+            <p>Focuses on software engineering, data structures, databases, and operating systems. Prepares students for careers in development and research.</p>
+        </div>
+        <div id="it" class="course-detail" style="display:none; margin-top: 15px;">
+            <h3>Information Technology</h3>
+            <p>Covers networking, cybersecurity, and system administration. Emphasizes practical implementation and infrastructure management.</p>
+        </div>
+        <div id="ai" class="course-detail" style="display:none; margin-top: 15px;">
+            <h3>Artificial Intelligence</h3>
+            <p>Introduces students to machine learning, neural networks, deep learning, and real-time AI applications with project-based learning.</p>
+        </div>
+        <div id="is" class="course-detail" style="display:none; margin-top: 15px;">
+            <h3>Information Science</h3>
+            <p>Focuses on information theory, analytics, software development, and system design using modern technologies.</p>
+        </div>
+        <div id="eee" class="course-detail" style="display:none; margin-top: 15px;">
+            <h3>Electrical Science and Engineering</h3>
+            <p>Covers power systems, electronics, embedded systems, and electrical machines. Offers both core theory and lab experience.</p>
+        </div>
+    </div>
+
+    <div id="contact" class="info-section">
+        <h2>Contact Information</h2>
+        <p>Email: info@abccollege.edu.in<br>
+           Phone: +91 98765 43210<br>
+           Address: PESITM College, Sagara Road, Shivamogga City, Karnataka - 577201</p>
+    </div>
+
+    <script>
+        function showContent(sectionId) {
+            const sections = document.querySelectorAll('.info-section');
+            sections.forEach(section => section.style.display = 'none');
+            document.getElementById(sectionId).style.display = 'block';
+
+            if (sectionId !== 'course') {
+                const allDetails = document.querySelectorAll('.course-detail');
+                allDetails.forEach(detail => detail.style.display = 'none');
+            }
+
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showCourseInfo(courseId) {
+            const allDetails = document.querySelectorAll('.course-detail');
+            allDetails.forEach(detail => detail.style.display = 'none');
+
+            const target = document.getElementById(courseId);
+            if (target) {
+                target.style.display = 'block';
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>
